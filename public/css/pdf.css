@@ -1,0 +1,153 @@
+@page { margin: 0px;
+    padding:0px;
+}
+div.endline{
+    width: 220px;
+    height: 2px;
+    background: #000;
+    float: left;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-left: 200px;
+}
+div.box-Section1{
+    float: left;
+    width: 100%;
+    padding: 0px 20px
+}
+div.MsoNormal.tex-theme-normal,div.line-text{
+    margin:10px 0px;
+}
+div.line-text div{
+    border-bottom-color: #000;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+}
+div.items-row-doc{
+
+    position: relative;
+}
+ol{
+    float:left;
+    width:100%;
+    padding-left: 0px;
+}
+ol li.items100-theme{
+    width:100%;
+}
+span.diemdc{
+    position: absolute;
+    color: #FF0000;
+    font-size: 14px;
+    left: -40px;
+    top: 8px;
+    font-weight: bold;
+}
+p.dapanchon{
+    border:1px solid #000;
+    display:inline-block;
+    position:absolute;height:10mm;
+    width:10mm;
+    border-radius:50%;
+    float:left;
+}
+span.dapandung{
+    border:1px solid #FF0000;
+}
+.MsoNormal.MsoNormal-p{
+    margin:5px 20px;
+}
+ol li p{
+    margin:0px;
+}
+ol li{
+    list-style-type: none;
+    text-align: justify;
+    width: 100%;
+    padding-right: 50px;
+    margin-bottom:5px !important;
+    position: relative;
+}
+
+@font-face
+{font-family:Calibri;
+    panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+{font-family:"Lucida Sans Unicode";
+    panose-1:2 11 6 2 3 5 4 2 2 4;}
+
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+{margin:0in;
+    position: relative;
+    margin-bottom:.0001pt;
+    font-size:15px;}
+p.ListParagraph, li.ListParagraph, div.ListParagraph
+{margin-top:0in;
+    margin-right:0in;
+    margin-bottom:0in;
+    margin-left:.5in;
+    margin-bottom:.0001pt;
+    font-size:14.0pt;
+    font-family:"Times New Roman";}
+p.ListParagraphCxSpFirst, li.ListParagraphCxSpFirst, div.ListParagraphCxSpFirst
+{margin-top:0in;
+    margin-right:0in;
+    margin-bottom:0in;
+    margin-left:.5in;
+    margin-bottom:.0001pt;
+    font-size:14.0pt;
+    font-family:"Times New Roman";}
+p.ListParagraphCxSpMiddle, li.ListParagraphCxSpMiddle, div.ListParagraphCxSpMiddle
+{margin-top:0in;
+    margin-right:0in;
+    margin-bottom:0in;
+    margin-left:.5in;
+    margin-bottom:.0001pt;
+    font-size:14.0pt;
+    font-family:"Times New Roman";}
+p.ListParagraphCxSpLast, li.ListParagraphCxSpLast, div.ListParagraphCxSpLast
+{margin-top:0in;
+    margin-right:0in;
+    margin-bottom:0in;
+    margin-left:.5in;
+    margin-bottom:.0001pt;
+    font-size:14.0pt;
+    font-family:"Times New Roman";}
+p.TableContents, li.TableContents, div.TableContents
+{margin:0in;
+    margin-bottom:.0001pt;
+    font-size:12.0pt;
+    font-family:"Times New Roman";}
+p.Char, li.Char, div.Char
+{margin-top:6.0pt;
+    margin-right:0in;
+    margin-bottom:6.0pt;
+    margin-left:0in;
+    line-height:130%;
+    font-size:13.0pt;
+    font-family:Arial;}
+@page Section1
+{size:8.5in 11.0in;
+    margin:42.55pt 42.55pt 34.0pt 56.7pt;}
+div.Section1
+{page:Section1;
+    margin:0px auto;
+    width:768px;
+}
+
+ol
+{margin-bottom:0in;}
+ol
+{margin-bottom:0in;}
+.border-MsoNormal{
+    border-bottom: 1px dotted #000;
+    float: left;
+    width: 100%;
+}
+.total-marks{
+    font-size: 25px;
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+ }
