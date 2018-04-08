@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Permission;
+// models
+use App\Models\Permission;
+use App\Models\User;
+use App\Models\Role;
 
 
 // request
@@ -14,6 +17,7 @@ use App\Http\Requests\UpdatePermissionPut;
 
 class PermissionController extends Controller
 {
+    public $current_menu_item = 'permissions';
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +27,12 @@ class PermissionController extends Controller
     {
         $permission_list = Permission::all();
 
-        $data = ['permission_list' => $permission_list];
+        $data = [
+            'permission_list' => $permission_list,
+            'current_menu_item' => $this->current_menu_item
+        ];
 
-        return view('admin.permission_list')->with($data);
+        return view('admin.permissions.permission_list')->with($data);
     }
 
     /**
@@ -35,7 +42,10 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin.permission_create');
+        $data = [
+            'current_menu_item' => $this->current_menu_item
+        ];
+        return view('admin.permissions.permission_create')->with($data);
     }
 
     /**
@@ -78,8 +88,12 @@ class PermissionController extends Controller
     {
         $permission = Permission::find($id);
 
-        $data = array ('permission' => $permission);
-        return view('admin.permission_edit')->with($data);
+        $data = array (
+            'permission' => $permission, 
+            'current_menu_item' => $this->current_menu_item
+        );
+        
+        return view('admin.permissions.permission_edit')->with($data);
     }
 
     /**

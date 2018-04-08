@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use App\Permission;
+use App\Models\Permission;
 
 use Illuminate\Support\Facades\Input;
 

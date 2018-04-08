@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 // model
-use App\Role;
+use App\Models\Role;
 
 use Illuminate\Support\Facades\Input;
 

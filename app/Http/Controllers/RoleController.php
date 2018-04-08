@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Role;
+
+// models
+use App\Models\Permission;
+use App\Models\User;
+use App\Models\Role;
 
 // request
 //
@@ -27,7 +31,7 @@ class RoleController extends Controller
             'current_menu_item' => $this->current_menu_item
         );
 
-        return view('admin.role_list')->with($data);
+        return view('admin.roles.role_list')->with($data);
     }
 
     /**
@@ -37,7 +41,14 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role_create');
+        $list_permission = Permission::all();
+
+        $data = array (
+            'list_permission' => $list_permission,
+            'current_menu_item' => $this->current_menu_item
+        );
+
+        return view('admin.roles.role_create')->with($data);
     }
 
     /**
@@ -54,6 +65,8 @@ class RoleController extends Controller
         $new_role->description = $request->description;
 
         $new_role->save();
+
+        $new_role->perms()->sync($request->permissions);
 
         return redirect()->route('roles.index');
     }
@@ -88,9 +101,14 @@ class RoleController extends Controller
     {
         $role = Role::where('id', '=', $id)->first();
 
-        $data = array ('role' => $role);
+        $list_permission = Permission::all();
 
-        return view('admin.role_edit')->with($data);
+        $data = array (
+            'role' => $role, 'list_permission' => $list_permission,
+            'current_menu_item' => $this->current_menu_item
+        );
+
+        return view('admin.roles.role_edit')->with($data);
     }
 
     /**
@@ -104,11 +122,13 @@ class RoleController extends Controller
     {
         $role = Role::where('id', '=', $id)->first();
 
-        $role->name = $request->name;
+        $role->name         = $request->name;
         $role->display_name = $request->display_name;
-        $role->description = $request->description;
+        $role->description  = $request->description;
 
         $role->save();
+
+        $role->perms()->sync($request->permissions);
 
         return redirect()->route('roles.index');
     }
@@ -125,12 +145,4 @@ class RoleController extends Controller
         return redirect()->route('roles.index');
     }
 
-
-    /**
-     * Add permission for role
-     */
-    public function edit_permission($id)
-    {
-
-    }
 }

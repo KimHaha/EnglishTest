@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <div class="btn-group">
             
-            <a href="{{ route('permissions.create') }}" name="add" id="add" onclick="check_perform_add('Students/add');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Thêm</a>            
+            <a href="{{ route('permissions.create') }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add</a>            
 
 		   </div>
     </div>
@@ -68,6 +68,9 @@
                             <th>Action</th>                            
                         </tr>
                         
+
+
+                        {{-- list permission --}}
                         @foreach ($permission_list as $permission)
                         <tr>
                             <td><input type="hidden" name="data[Student][id][]" id="DeleteCheckbox18_" value="0"/><input type="checkbox" name="data[Student][id][]"  value="18" id="DeleteCheckbox18" class="chkselect"/></td>
@@ -77,13 +80,13 @@
                             <td>{{ $permission->description }}</td>
 
                             <td>
-                                <a href="{{ route('permissions.edit', $permission->id) }}" name="editallfrm" onclick="check_perform_sedit('Students','18');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Sửa</a>
+                                <a href="{{ route('permissions.edit', $permission->id) }}" name="editallfrm" onclick="check_perform_sedit('Students','18');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>
 
 
                                 <a href="{{ route('permissions.destroy', $permission->id) }}"
                                 onclick="event.preventDefault();
                                          document.getElementById('delete-{{ $permission->id }}').submit();" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-trash"></span>&nbsp;Xóa</a>
+                                <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
 
                                 <form id="delete-{{ $permission->id }}" action="{{ route('permissions.destroy', $permission->id) }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}

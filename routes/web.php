@@ -19,18 +19,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('users', 'UserController@index')->name('list_user');
-
 Route::get('class', 'ClassController@index')->name('class');
 
-Route::get('roles/{id}/permissions', 'RoleController@edit_permission')->name('roles.edit_permission');
-Route::get('roles/{id}/permissions/{id_permission}/delete', 'RoleController@delete_permission')->name('roles.delete_permission');
+Route::resource('roles/{role_id}/permissions', 'RolePermissionController', [
+	'as' => 'roles', 'only' => ['index', 'destroy']
+]);
 
 Route::resources([
-    'roles' => 'RoleController',
-    'permissions' => 'PermissionController',
-    'questions' => 'QuestionController',
-    'users' => 'UserController',
+	'roles'                       => 'RoleController',
+	'permissions'                 => 'PermissionController',
+	'questions'                   => 'QuestionController',
+	'users'                       => 'UserController',
 ]);
 
 Route::get('test/{id}', 'RoleController@show');

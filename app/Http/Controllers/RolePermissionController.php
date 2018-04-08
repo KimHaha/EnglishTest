@@ -9,24 +9,23 @@ use App\Models\Permission;
 use App\Models\User;
 use App\Models\Role;
 
-class UserController extends Controller
+class RolePermissionController extends Controller
 {
-    public $current_menu_item = 'users';
+    public $current_menu_item = 'roles';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($role_id)
     {
-        $user_list = User::all();
+        $role = Role::findOrFail($role_id);
 
         $data = [
-            'current_menu_item' => $this->current_menu_item,
-            'user_list' => $user_list
+            'role' => $role,
+            'current_menu_item' => $this->current_menu_item
         ];
-
-        return view('admin.users.user_list')->with($data);
+        return view('admin.roles.role_list_permission')->with($data);
     }
 
     /**
@@ -69,16 +68,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        $role_list = Role::all();
-
-        $data = [
-            'user' => $user,
-            'current_menu_item' => $this->current_menu_item,
-            'role_list' => $role_list
-        ];
-
-        return view('admin.users.user_edit')->with($data);
+        //
     }
 
     /**
@@ -90,13 +80,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $role = Role::findOrFail($request->role_id);
-
-        $user->detachRoles();
-        $user->attachRole($role);
-
-        return redirect()->route('users.index');
+        //
     }
 
     /**
@@ -105,8 +89,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($role_id, $permission_id)
     {
-        //
+        $role = Role::findOrFail($role_id);
+        $permission = Permission::findOrFail($permission_id);
+
+        $role->detachPermission($permission);
+
+        return redirect()->route('roles.permissions.index', $role_id);
     }
 }

@@ -10,9 +10,6 @@
 
     <div class="col-md-12">
         <div class="btn-group">
-            
-            <a href="{{ route('roles.create') }}" name="add" id="add" onclick="check_perform_add('Students/add');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Thêm</a>            
-
 		   </div>
     </div>
 
@@ -42,14 +39,12 @@
 </div>
 
 
-
-<form action="students/deleteall" name="deleteallfrm" id="StudentDeleteallForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div></div>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
 			<div class="widget">
-				<h4 class="widget-title"> <span>Role</span></h4>
+				<h4 class="widget-title"> <span>Permissions of Role {{ $role->name }}</span></h4>
 			</div>
 		</div>
 
@@ -68,24 +63,21 @@
                             <th>Action</th>                            
                         </tr>
                         
-                        @foreach ($role_list as $role)
+                        @foreach ($role->permissions as $permission)
                         <tr>
                             <td><input type="hidden" name="data[Student][id][]" id="DeleteCheckbox18_" value="0"/><input type="checkbox" name="data[Student][id][]"  value="18" id="DeleteCheckbox18" class="chkselect"/></td>
-                            <td>{{ $role->id }}</td>
-                            <td><a href="{{ route('roles.show', $role->id) }}" >{{ $role->name }}</a></td>
-                            <td>{{ $role->display_name }}</td>
-                            <td>{{ $role->description }}</td>
+                            <td>{{ $permission->id }}</td>
+                            <td>{{ $permission->name }}</td>
+                            <td>{{ $permission->display_name }}</td>
+                            <td>{{ $permission->description }}</td>
 
                             <td>
-                                <a href="{{ route('roles.edit', $role->id) }}" name="editallfrm" onclick="check_perform_sedit('Students','18');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Sửa</a>
-
-
-                                <a href="{{ route('roles.destroy', $role->id) }}"
+                                <a href="{{ route('roles.permissions.destroy', [$role->id, $permission->id]) }}"
                                 onclick="event.preventDefault();
-                                         document.getElementById('delete-{{ $role->id }}').submit();" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-trash"></span>&nbsp;Xóa</a>
+                                         document.getElementById('delete-{{ $permission->id }}').submit();" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
 
-                                <form id="delete-{{ $role->id }}" action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display: none;">
+                                <form id="delete-{{ $permission->id }}" action="{{ route('roles.permissions.destroy', [$role->id, $permission->id]) }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                 </form>                            
@@ -98,14 +90,5 @@
         </div>
     </div>
 </div>
-</form>
-
-<div class="col-md-10">
-    <div class="row">
-                </div>
-</div><div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">    
-</div>		</div>
-	</div>
-	    </div>
 
 @stop

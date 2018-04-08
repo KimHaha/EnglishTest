@@ -55,10 +55,10 @@
 	    <nav class="hidden-xs hidden-sm">
 	    <ul class="sf-menu clearfix list-unstyled">
 			<li @if ($current_menu_item == 'home') class="current-menu-item" @endif><a href="{{ route('home') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;Home Page</a></li>
-			<li ><a href="{{ route('questions.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
+			<li @if ($current_menu_item == 'questions') class="current-menu-item" @endif><a href="{{ route('questions.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
 			<li @if ($current_menu_item == 'roles') class="current-menu-item" @endif><a href="{{ route('roles.index') }}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Roles</a></li>
-			<li ><a href="{{ route('permissions.index') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Permissions</a></li>
-			<li ><a href="{{ route('users.index') }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Users</a></li>
+			<li @if ($current_menu_item == 'permissions') class="current-menu-item" @endif><a href="{{ route('permissions.index') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Permissions</a></li>
+			<li @if ($current_menu_item == 'users') class="current-menu-item" @endif><a href="{{ route('users.index') }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Users</a></li>
 			<li ><a href="Results"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Kết quả</a></li>
 			<li ><a href="Configurations"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Cấu hình</a></li>
 			<li ><a href="Users"><span class="glyphicon glyphicon-user"></span>&nbsp;Người dùng</a></li>
