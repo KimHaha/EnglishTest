@@ -30,6 +30,7 @@ Route::resources([
 	'permissions'                 => 'PermissionController',
 	'questions'                   => 'QuestionController',
 	'users'                       => 'UserController',
+	'categories'				  => 'CategoryController',
 ]);
 
 Route::get('test/{id}', 'RoleController@show');

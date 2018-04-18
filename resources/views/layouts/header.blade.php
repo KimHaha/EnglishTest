@@ -55,6 +55,7 @@
 	    <nav class="hidden-xs hidden-sm">
 	    <ul class="sf-menu clearfix list-unstyled">
 			<li @if ($current_menu_item == 'home') class="current-menu-item" @endif><a href="{{ route('home') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;Home Page</a></li>
+			<li @if ($current_menu_item == 'categories') class="current-menu-item" @endif><a href="{{ route('categories.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Categories</a></li>
 			<li @if ($current_menu_item == 'questions') class="current-menu-item" @endif><a href="{{ route('questions.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
 			<li @if ($current_menu_item == 'roles') class="current-menu-item" @endif><a href="{{ route('roles.index') }}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Roles</a></li>
 			<li @if ($current_menu_item == 'permissions') class="current-menu-item" @endif><a href="{{ route('permissions.index') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Permissions</a></li>
