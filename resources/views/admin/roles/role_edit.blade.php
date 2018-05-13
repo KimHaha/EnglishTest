@@ -4,7 +4,7 @@
 
 <div class="panel panel-default mrg">
 
-    <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Add <span>New Role</span> </h4></div></div>
+    <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Edit Role</span> </h4></div></div>
 
 
     <div class="panel-body">

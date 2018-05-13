@@ -26,6 +26,7 @@
 			<div class="col-md-4 mrg text-center">
 				<div class="btn-group user-login">
 					<div class="btn dropdown-toggle" style="background: none;border: 0px;box-shadow: none;" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-user btn btn-success btn-sm"></span>&nbsp;Xin chào ! Administrator&nbsp;<span class="caret"></span>
 					</div>
 					<div class="dropdown-menu" role="menu">
 						<div class="col-md-12">
@@ -56,8 +57,20 @@
 	    <div class="site-menu-container pull-left">
 	    <nav class="hidden-xs hidden-sm">
 	    <ul class="sf-menu clearfix list-unstyled">
-	      	      <li ><a href="admin"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
-	      	      <li class="current-menu-item"><a href="Users"><span class="glyphicon glyphicon-user"></span>&nbsp;User Login</a></li>
+	      	      <li ><a href="admin"><span class="glyphicon glyphicon-home"></span>&nbsp;Tổng quan</a></li>
+	      	      <li ><a href="Subjects"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Đối tượng</a></li>
+	      	      <li ><a href="Groups"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Lớp</a></li>
+	      	      <li ><a href="Students"><span class="glyphicon glyphicon-user"></span>&nbsp;Sinh viên</a></li>
+	      	      <li ><a href="Exams"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Đợt thi</a></li>
+	      	      <li ><a href="Results"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Kết quả</a></li>
+	      	      <li ><a href="Configurations"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Cấu hình</a></li>
+	      	      <li class="current-menu-item"><a href="Users"><span class="glyphicon glyphicon-user"></span>&nbsp;Người dùng</a></li>
+	      	      <li ><a href="Contents"><span class="glyphicon glyphicon-cog"></span>&nbsp;Nội dung</a></li>
+	      	      <li ><a href="Exports"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Lưu Trữ</a></li>
+	      	      <li ><a href="Helps"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Trợ giúp</a></li>
+	      	      <li class="menu-hidden"><a href="Users/myProfile"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></li>
+	      <li class="menu-hidden"><a href="Users/changePass"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></li>
+	      <li class="menu-hidden"><a href="Users/logout"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a></li>
 	    </ul> 
 	    </nav> 
 	    </div> 	    
@@ -68,43 +81,30 @@
         		<div id="page-content">
 	<div class="container mrg">
                     <div class="col-md-5 login">
-			<form action="{{ route('login') }}" name="post_req" id="post_req" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>
-				{{ csrf_field() }}				
-				<div class="form-group">
+			<form action="users/login_form" controller="Users" name="post_req" id="post_req" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>				<div class="form-group">
 					<div class="row">
-						<label for="admin_id" class="col-sm-12 control-label">Email:</label>
+						<label for="admin_id" class="col-sm-12 control-label">Admin / Teacher ID :</label>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-user"></span>
-                                                <input name="email" value="{{ old('email') }}" required autofocus class="form-control validate[required]" placeholder="Email" maxlength="50" type="text" id="UserUsername" required="required"/>					</div>
-                                                @if ($errors->has('email'))
-				                                    <span class="help-block">
-				                                        <strong>{{ $errors->first('email') }}</strong>
-				                                    </span>
-				                                @endif
+                                                <input name="data[User][username]" class="form-control validate[required]" placeholder="Admin / Teacher ID" maxlength="50" type="text" id="UserUsername" required="required"/>					</div>
 				</div>
-				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+				<div class="form-group">
 					<div class="row">
 						<label for="pass" class="col-sm-12 control-label">Password :</label>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-lock"></span>
-						<input name="password" required class="form-control validate[required,minSize[4],maxSize[15]]" placeholder="Password" type="password" id="UserPassword"/>
-						@if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-            					</div>
+						<input name="data[User][password]" class="form-control validate[required,minSize[4],maxSize[15]]" placeholder="Password" type="password" id="UserPassword"/>					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="row">
-						<p class="help-block"><a href="">Forgot Password</a></p>
+						<p class="help-block"><a href="Forgots/password">Forgot Password</a></p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="row">
-						<p class="help-block"><a href="">Forgot User Name</a></p>
+						<p class="help-block"><a href="Forgots/username">Forgot User Name</a></p>
 					</div>
 				</div>
 				<div class="form-group col-md-12">

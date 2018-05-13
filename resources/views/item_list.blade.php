@@ -4,6 +4,11 @@
 
 <?php
     $list_column = \DB::getSchemaBuilder()->getColumnListing($table);
+    if ($current_menu_item == 'users')
+    {
+        $list_column = array_diff($list_column, ['password', 'remember_token']);
+    }
+    $list_column = array_diff($list_column, ['created_at', 'created_by']);
     switch ($current_menu_item) {
         case 'categories':
             $title = 'Category';
@@ -26,8 +31,28 @@
             break;
 
         case 'users':
-            $list_action = ['edit'];
+            if (isset($action)) 
+                $list_action = ['add user', 'delete'];
+            else 
+                $list_action = ['edit'];
             $title = 'User';
+            array_push($list_column, 'role');
+            break;
+
+        case 'classes':
+            $list_action = ['create', 'edit', 'delete'];
+            $title = 'Class';
+            break;
+
+        case 'exams':
+            $list_action = ['delete'];
+            $title = 'Exam';
+            break;
+            
+        case 'examinations':
+            $list_action = ['create', 'edit', 'delete', 'show exam', 'create exam'];
+            $title = 'Examination';
+            break;
         default:
             # code...
             $title = '';
@@ -42,9 +67,15 @@
         <div class="row">
     <div class="col-md-12">
         <div class="btn-group">
+            @if (in_array('add user', $list_action))
+            <a href="{{ route('classes.users.add', $class_id) }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add {{ $title }}</a>
+            @else
             <a href="{{ route($current_menu_item . '.create') }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create {{ $title }}</a>
+            @endif
 
-            <a href="Questions" class="btn btn-info"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;List Questions</a>        </div>
+            @if ($current_menu_item == 'categories')
+            <a href="questions" class="btn btn-info"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;List Questions</a>        </div>
+            @endif
     </div>
 
         <div class="col-md-2 mrg-1">
@@ -78,16 +109,34 @@
 
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered  ">
                 <tr>
                     <th><input type="checkbox" name="selectAll"  value="deleteall" id="selectAll"/></th>
+
                     @foreach ($list_column as $column)
-                    <?php $column_title = ucwords(str_replace('_', ' ', $column)); ?>
+
+                    <?php 
+                    	if ($column == 'examination_id') 
+                    		$column_title = 'Examination';
+                        if ($column == 'class_id') 
+                            $column_title = 'Class';
+                        elseif ($column == 'teacher_id')
+                            $column_title = 'Teacher';
+                        elseif ($column == 'role')
+                            $column_title = 'Role';
+                        else
+                            $column_title = ucwords(str_replace('_', ' ', $column)); 
+                        ?>
                     <th>{{ $column_title }}</th>
                     @endforeach
+
+
                     @if ($current_menu_item == 'questions') 
                     <th>Category</th>
+                    @elseif ($current_menu_item == 'examinations')
+                    <th>Class Join</th>
                     @endif
+
                     <th>Action</th>
                 </tr>
                 
@@ -97,12 +146,32 @@
                         <input type="checkbox" name=""  value="6" id="DeleteCheckbox6" class="chkselect"/></td>
 
                     @foreach ($list_column as $column)
-                    <td>
-
-                        @if ($column == 'created_by') {{ $item->owner->name }}
-                        @elseif ($column == 'updated_by') {{ $item->updater->name }}
-                        @else {{ $item->$column }}
+                    <td >
+                        @if ($column == 'teacher_id')
+                            @if ($item->teacher != NULL)
+                            {{ $item->teacher->name }}
+                            @endif
+                        @elseif ($column == 'role')
+                            @foreach ($item->roles as $role)
+                                {{ $role->display_name }}
+                            @endforeach
+                        @elseif ($column == 'class_id')
+                            @if ($item->class != NULL)
+                            {{ $item->class->name }}
+                            @endif
+                        @elseif ($column == 'created_by') 
+                            @if ($item->owner) {{ $item->owner->name }}
+                            @else NULL
+                            @endif
+                        @elseif ($column == 'updated_by') 
+                            @if ($item->updater) {{ $item->updater->name }}
+                            @else NULL
+                            @endif
+                        @elseif ($column == 'name' && $current_menu_item == 'classes')
+                        <a href="{{ route('classes.show', $item->id) }}">{{ $item->$column }}</a>
+                        @else {{ $out = strlen($item->$column) > 10 ? substr($item->$column,0,10)."..." : $item->$column }}
                         @endif
+                        
                     </td>
 
 
@@ -112,6 +181,12 @@
                     <td>
                         @foreach ($item->categories as $category) 
                             {{ $category->name }}
+                        @endforeach
+                    </td>
+                    @elseif ($current_menu_item == 'examinations')
+                    <td>
+                        @foreach ($item->classes as $class) 
+                            {{ $class->name }}
                         @endforeach
                     </td>
                     @endif
@@ -128,7 +203,11 @@
 
 
                         @if (in_array('delete', $list_action))                
-
+                        @if (isset($action) && $current_menu_item == 'users')
+                        <a href="{{ route('classes.users.destroy', [$class_id, $item->id]) }}"
+                            class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
+                        @else 
                         <a href="{{ route($current_menu_item . '.destroy', $item->id) }}"
                             onclick="event.preventDefault();
                                      document.getElementById('delete-{{ $item->id }}').submit();" class="btn btn-danger">
@@ -138,6 +217,14 @@
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                             </form>
+                        @endif
+                        @endif
+
+                        @if (in_array('create exam', $list_action))
+                        <a href="{{ route('generate_list_exam', $item->id) }}" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span>&nbsp;Create Exam</a>
+                        @endif
+                        @if (in_array('show exam', $list_action))
+                        <a href="{{ route('examinations.show', $item->id) }}" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span>&nbsp;Show Exam</a>
                         @endif
                     </td>
                 

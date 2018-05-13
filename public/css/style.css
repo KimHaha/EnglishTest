@@ -9,3 +9,8 @@ body{background:#f9f9f9;}
 table tr th a{color:#000;background: url('../img/sort_both.png') no-repeat center right;cursor: pointer;display: block;}
 table tr th a:hover{text-decoration: none;}
 .error-message{color: #FF0000;}
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

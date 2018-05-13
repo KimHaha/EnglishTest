@@ -46,9 +46,11 @@
     	$form_url = $current_menu_item . '.update';
     }
 
-    $field_column_name = ['name', 'display_name', 'description', 'weight', 'difficult'];
+    $field_column_name = ['name', 'display_name', 'description', 'weight', 'difficult', 
+                            'max_quantity', 'teacher_id'];
     $select_column_name = ['type'];
     $radio_column_name = ['skill'];
+    $date_time_column_name = ['start_time', 'end_time'];
 ?>
 
 <div class="panel panel-default mrg">
@@ -82,7 +84,16 @@
                 {{-- if column is field --}}
     			@if (in_array($column, $field_column_name))
 				<div class="form-group">
-                    <?php $column_title = ucwords(str_replace('_', ' ', $column)); ?>
+                    <?php 
+                        if ($column == 'teacher_id'){
+                            $column_title = 'Teacher Email';
+                            $column_input = 'email';
+                        }
+                        else {
+                            $column_title = ucwords(str_replace('_', ' ', $column)); 
+                            $column_input = $column;
+                        }
+                    ?>
 
 					<label for="{{ $column }}"><small>{{ $column_title }}<span class="text-danger"> *</span></small></label>
 
@@ -91,7 +102,8 @@
 						if ($action == 'edit') 
 							$value = $item->$column;
 					?>
-					<input name="{{ $column }}" class="form-control input-sm" placeholder="{{ $column_title }}" @if ($action == 'edit') value="{{ $value }}" @endif maxlength="100"></div>
+					<input name="{{ $column }}" class="form-control input-sm" placeholder="{{ $column_title }}" @if ($action == 'edit') value="{{ $value }}" @endif maxlength="100">
+                </div>
 
                 {{-- if column is select box --}}
                 @elseif (in_array($column, $select_column_name))        
@@ -113,6 +125,18 @@
                         @endforeach
                         </div>
                     </div>
+                @elseif (in_array($column, $date_time_column_name))
+                    <div class="form-group">
+                        <?php $column_title = ucwords(str_replace('_', ' ', $column)); ?>
+
+                        <label for="{{ $column }}"><small>{{ $column_title }}<span class="text-danger"> *</span></small></label>
+
+                        <?php 
+                            $value = '';
+                            if ($action == 'edit') 
+                                $value = $item->$column;
+                        ?>
+                        <input name="{{ $column }}" data-provide="datepicker" type="date" class="form-control input-sm" placeholder="{{ $column_title }}" @if ($action == 'edit') value="{{ $value }}" @endif maxlength="100"></div>
 				@endif
 			</div>
 
@@ -122,11 +146,9 @@
 
         	<?php $index++; ?>
 			@endforeach
-			</div>
 
 			{{-- permission --}}
 			@if ($current_menu_item == 'permissions')
-			<div class="row">
     		<div class="col-md-12">
 				<div class="form-group">
 					<label for="description"><small>Permission: <span class="text-danger"> *</span></small></label>
@@ -142,7 +164,30 @@
 					@endforeach
 				</div>
 			</div>
-			</div>
+
+            {{-- examinations --}}
+            @elseif ($current_menu_item == 'examinations')
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="classes"><small>Class Join: <span class="text-danger"> *</span></small></label>
+
+
+                    @foreach ($list_class as $class)
+                    <div class="form-check">
+                        <input name="class_id[]" class="form-check-input" type="checkbox" value="{{ $class->id }}" id="checkPermission-{{ $class->id }}"
+                        @foreach ($item->classes as $class_join)
+                            @if ($class->id == $class_join->id) 
+                                checked
+                            @endif
+                        @endforeach>
+                        <label class="form-check-label" for="checkPermission-{{ $class->id }}">
+                            {{ $class->name }}
+                        </label>
+                    </div>
+                    @endforeach
+                    
+                </div>
+            </div>
 			@endif
 
 			{{-- submit or cancel --}}

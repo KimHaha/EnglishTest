@@ -4,15 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// models
-use App\Models\Permission;
-use App\Models\User;
-use App\Models\Role;
-
-class UserController extends Controller
+class ResultController extends Controller
 {
-    public $current_menu_item = 'users';
-    public $table = 'users';
     /**
      * Display a listing of the resource.
      *
@@ -20,15 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $item_list = User::all();
-
-        $data = [
-            'current_menu_item' => $this->current_menu_item,
-            'list_item' => $item_list,
-            'table' => $this->table
-        ];
-
-        return view('item_list')->with($data);
+        //
     }
 
     /**
@@ -60,7 +45,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('show_result', $id);
     }
 
     /**
@@ -71,16 +56,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        $role_list = Role::all();
-
-        $data = [
-            'user' => $user,
-            'current_menu_item' => $this->current_menu_item,
-            'role_list' => $role_list
-        ];
-
-        return view('admin.users.user_edit')->with($data);
+        //
     }
 
     /**
@@ -92,13 +68,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $role = Role::findOrFail($request->role_id);
-
-        $user->detachRoles();
-        $user->attachRole($role);
-
-        return redirect()->route('users.index');
+        //
     }
 
     /**
