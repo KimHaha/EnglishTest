@@ -175,11 +175,14 @@
                     @foreach ($list_class as $class)
                     <div class="form-check">
                         <input name="class_id[]" class="form-check-input" type="checkbox" value="{{ $class->id }}" id="checkPermission-{{ $class->id }}"
+
+                        @if (isset($item))
                         @foreach ($item->classes as $class_join)
                             @if ($class->id == $class_join->id) 
                                 checked
                             @endif
                         @endforeach>
+                        @endif
                         <label class="form-check-label" for="checkPermission-{{ $class->id }}">
                             {{ $class->name }}
                         </label>

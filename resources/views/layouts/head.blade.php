@@ -48,6 +48,7 @@
 	<script type="text/javascript" src="{{ asset('js/design200/revolution.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/custom.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jquery.form.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('high_charts/js/highcharts.js') }}"></script>
 	{{-- <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script> --}}
 
 

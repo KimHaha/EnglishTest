@@ -60,7 +60,9 @@
 			<li @if ($current_menu_item == 'home') class="current-menu-item" @endif><a href="{{ route('home') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;Home Page</a></li>
 			@if ($user->hasRole('student'))
 			<li @if ($current_menu_item == 'doing_contest') class="current-menu-item" @endif><a href="{{ route('do_contest') }}"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Contest</a></li>
-			<li @if ($current_menu_item == 'results') class="current-menu-item" @endif><a href="{{ route('do_contest') }}"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Result</a></li>
+			@endif
+			@if ($user->hasRole('student') || $user->hasRole('teacher'))
+			<li @if ($current_menu_item == 'results') class="current-menu-item" @endif><a href="{{ route('results.index') }}"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Result</a></li>
 			@endif
 			@if ($user->hasRole('admin') || $user->hasRole('teacher'))
 			<li @if ($current_menu_item == 'categories') class="current-menu-item" @endif><a href="{{ route('categories.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Categories</a></li>

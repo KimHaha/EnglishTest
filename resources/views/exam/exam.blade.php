@@ -3,6 +3,7 @@
 @section ('content')
 
 <?php
+    $user = Auth::user();
     $list_column = \DB::getSchemaBuilder()->getColumnListing($table);
     switch ($current_menu_item) {
 
@@ -56,7 +57,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
 			<div class="widget">
-				<h4 class="widget-title"> <span>{{ $title }}</span></h4>
+				<h4 class="widget-title"> <span>{{ $title }} @if ($action == 'view_result') OF {{ $exam->user->name }}  @endif</span></h4>
                 @if ($action == 'doing_exam') 
                 <div>Remaining Time <span id="time"></span> minutes!</div>
                 @elseif ($action == 'view_result')

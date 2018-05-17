@@ -45,7 +45,7 @@
             break;
 
         case 'exams':
-            $list_action = ['delete'];
+            $list_action = ['delete', 'view'];
             $title = 'Exam';
             break;
             
@@ -69,7 +69,7 @@
         <div class="btn-group">
             @if (in_array('add user', $list_action))
             <a href="{{ route('classes.users.add', $class_id) }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add {{ $title }}</a>
-            @else
+            @elseif ($current_menu_item != 'exams')
             <a href="{{ route($current_menu_item . '.create') }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create {{ $title }}</a>
             @endif
 
@@ -110,6 +110,8 @@
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered  ">
+
+                {{-- header of table --}}
                 <tr>
                     <th><input type="checkbox" name="selectAll"  value="deleteall" id="selectAll"/></th>
 
@@ -118,7 +120,7 @@
                     <?php 
                     	if ($column == 'examination_id') 
                     		$column_title = 'Examination';
-                        if ($column == 'class_id') 
+                        elseif ($column == 'class_id') 
                             $column_title = 'Class';
                         elseif ($column == 'teacher_id')
                             $column_title = 'Teacher';
@@ -140,14 +142,17 @@
                     <th>Action</th>
                 </tr>
                 
+                {{-- content --}}
                 @foreach ($list_item as $item)
                 <tr>
                     <td><input type="hidden" name="" id="DeleteCheckbox6_" value="0"/>
                         <input type="checkbox" name=""  value="6" id="DeleteCheckbox6" class="chkselect"/></td>
 
                     @foreach ($list_column as $column)
-                    <td >
-                        @if ($column == 'teacher_id')
+                    <td>
+                        @if ($column == 'examination_id')
+                            {{ $item->examination->name }}
+                        @elseif ($column == 'teacher_id')
                             @if ($item->teacher != NULL)
                             {{ $item->teacher->name }}
                             @endif
@@ -199,6 +204,10 @@
                     <td>
                         @if (in_array('edit', $list_action))
                         <a href="{{ route($current_menu_item . '.edit', $item->id) }}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>
+                        @endif
+
+                        @if (in_array('view', $list_action))
+                        <a href="{{ route($current_menu_item . '.show', $item->id) }}" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span>&nbsp;View Exam</a>
                         @endif
 
 

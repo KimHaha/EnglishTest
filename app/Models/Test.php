@@ -12,7 +12,7 @@ class Test extends Model
 
     public function user() 
     {
-    	return $this->belongsTo('App\Models\User', 'id', 'owner_id');
+    	return $this->belongsTo('App\Models\User', 'owner_id', 'id');
     }
 
     public function exam ()

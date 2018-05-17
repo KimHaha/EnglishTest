@@ -293,6 +293,11 @@ class ExamController extends Controller
         }
 
         $test->score = $score;
+        if ($score > $test->exam->examination->pass_score) 
+            $test->pass = true;
+        else 
+            $test->pass = false;
+
         $test->finished = true;
         $test->content = implode(',', $list_answer);
         $test->save();

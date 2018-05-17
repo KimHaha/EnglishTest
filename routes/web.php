@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('main_page');
 
 Auth::routes();
 
@@ -47,6 +47,9 @@ Route::post('result/{test_id}', 'ExamController@calculate_score')
 
 Route::get('result/{test_id}', 'ExamController@show_result')
 	->name('show_result');
+
+Route::post('results/search', 'ResultController@search')
+	->name('result_search');
 
 Route::resources([
 	'roles'        => 'RoleController',

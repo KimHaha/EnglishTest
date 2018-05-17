@@ -56,8 +56,8 @@
 	    <div class="site-menu-container pull-left">
 	    <nav class="hidden-xs hidden-sm">
 	    <ul class="sf-menu clearfix list-unstyled">
-	      	      <li ><a href="admin"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
-	      	      <li class="current-menu-item"><a href="Users"><span class="glyphicon glyphicon-user"></span>&nbsp;User Login</a></li>
+	      	      <li ><a href="{{ route('main_page') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
+	      	      <li class="current-menu-item"><a href=""><span class="glyphicon glyphicon-user"></span>&nbsp;User Login</a></li>
 	    </ul> 
 	    </nav> 
 	    </div> 	    
