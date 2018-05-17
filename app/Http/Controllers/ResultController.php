@@ -112,6 +112,7 @@ class ResultController extends Controller
     public function search (Request $request) 
     {
         $user = Auth::user();
+        $tests = [];
 
         if ($user->hasRole('student'))
         {
@@ -124,34 +125,49 @@ class ResultController extends Controller
                 $field = filter_var($request->name_or_email, FILTER_VALIDATE_EMAIL) ? 'email': 'name';
 
                 if ($request->class_id_list == NULL) {
-                    $tests = DB::table('tests')
+                    $tests = \DB::table('tests')
                         ->join('users', 'tests.owner_id', '=', 'users.id')
-                        ->where($field, '=', $request->name_or_email)
+                        ->where('users.'.$field, '=', $request->name_or_email)
+                        ->select('tests.*')
                         ->get();
                 } else {
-                    $tests = DB::table('tests')
+                    $tests = \DB::table('tests')
                         ->join('users', 'tests.owner_id', '=', 'users.id')
-                        ->where($field, '=', $request->name_or_email)
+                        ->where('users.'.$field, '=', $request->name_or_email)
                         ->whereIn('class_id', $request->class_id_list)
+                        ->select('tests.*')
+                        ->get();
+                }
+            } else {
+                if ($request->class_id_list == NULL) {
+                    $tests = \DB::table('tests')
+                        ->join('users', 'tests.owner_id', '=', 'users.id')
+                        ->select('tests.*')
+                        ->get();
+                } else {
+                    $tests = \DB::table('tests')
+                        ->join('users', 'tests.owner_id', '=', 'users.id')
+                        ->whereIn('class_id', $request->class_id_list)
+                        ->select('tests.*')
                         ->get();
                 }
             }
         }
 
         // check examination
-        $test_list_search_examination = $tests;
-        if ($request->examination_id != 0) {
-            $test_list_search_examination = [];
-            foreach ($tests as $test) {
-                if ($test->exam->examination->id == $request->examination_id) {
-                    array_push($test_list_search_examination, $test);
-                }
+        $test_list_search_examination = [];
+        foreach ($tests as $test_record) {
+            $test = Test::findOrFail($test_record->id);
+            // if not all examination
+            if ($request->examination_id != 0 && $test->exam->examination->id == $request->examination_id) {
+                array_push($test_list_search_examination, $test);
+            } elseif ($request->examination_id == 0) {
+                array_push($test_list_search_examination, $test);
             }
         }
-            
-        // check result
-        $test_list_search = $test_list_search_examination;
 
+
+        // check result
         if ($request->result != 'all') {
             $test_list_search = [];
             foreach ($test_list_search_examination as $test) {
@@ -160,8 +176,8 @@ class ResultController extends Controller
                     array_push($test_list_search, $test);
                 }
             }
-        }
-
+        } else 
+            $test_list_search = $test_list_search_examination;
 
         $data = [
             'tests' => $test_list_search,

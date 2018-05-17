@@ -44,6 +44,7 @@
                     <th><input type="checkbox" name="selectAll"  value="deleteall" id="selectAll"/></th>
                     <th>ID</th>
                     <th>Examination</th>
+                    <th>User Name</th>
                     @if ($user->hasRole('teacher'))
                     <th>Class</th>
                     @endif
@@ -63,6 +64,7 @@
 
                     <td><a href="{{ route('show_result', $test->id) }}">{{ $test->id }}</a></td>
                     <td>{{ $test->exam->examination->name }}</td>
+                    <td>{{ $test->user->name }}</td>
                     @if ($user->hasRole('teacher'))
                     <td>{{ $test->user->class->name }}</td>
                     @endif

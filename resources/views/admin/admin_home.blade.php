@@ -26,17 +26,17 @@
 						<tr>
 							<td>Đang hoạt động</td>
 							<td>__________</td>
-							<td>0</td>
+							<td>{{ $active_count_examination }}</td>
 						</tr>
 						<tr>
 							<td>Sắp tới</td>
 							<td>__________</td>
-							<td>0</td>
+							<td>{{ $upcoming_count_examination }}</td>
 						</tr>
 						<tr>
 							<td>Hoàn thành</td>
 							<td>__________</td>
-							<td>1</td>
+							<td>{{ $finished_count_examination }}</td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
@@ -62,20 +62,39 @@
 					<div class="table-responsive">
 					<table class="table table-striped table-bordered">
 						<tr>
-							<th>Ngày</th>
-							<th>Đợt thi</th>
-							<th>Nhóm</th>
-							<th>Điểm</th>
-							<th>Thời gian</th>
+							<th>Start Time</th>
+							<th>Examination</th>
+							<th>Class Join</th>
+							<th>Pass Score</th>
+							<th>Time</th>
 						</tr>
+
+						@if ($upcoming_count_examination != 0)
+						@foreach ($examination_upcoming as $examination)
 						<tr>
+							<td>{{ $examination_upcoming->start_time }}</td>
+							<td>{{ $examination_upcoming->name }}</td>
+							<td>
+								@foreach ($item->classes as $class) 
+		                            {{ $class->name }}
+		                        @endforeach
+							</td>
+							<td>{{ $examination_upcoming->pass_score }}</td>
+							<td>40 mins</td>
+						</tr>
+						@endforeach
+
+						@else
 						<tr><td colspan="5">&nbsp;</td></tr>
 						<tr><td colspan="5">&nbsp;</td></tr>
 						<tr><td colspan="5">&nbsp;</td></tr>
+						@endif
 					</table>
 					</div>					
 				</div> 
 			</div>
+
+			
 			<form action="results" controller="Results" name="post_req" id="post_req" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -90,15 +109,15 @@
 							<th>Kết quả tổng thể</th>
 							<th>Thống kê sinh viên</th>
 						</tr>
-													<tr>
-								<td><strong class="text-danger">Tin học kì 1 Năm học 2016-2017</strong><br/>
-								Từ: <strong class="text-danger">08 Jan, 2017 21:25 PM</strong><br/>
-								Đến: <strong class="text-danger">09 Jan, 2017 21:25 PM</strong><br/>
-								<a href="#" onclick="examResult(10);">Chi tiết</a>								</td>
-								<td>
-									<div class="chart">
-									<div id="mywrapperor10"></div>
-									<script type="text/javascript">
+						<tr>
+							<td><strong class="text-danger">{{ $last_examination->name }}</strong><br/>
+							Từ: <strong class="text-danger">{{ $last_examination->start_time }}</strong><br/>
+							Đến: <strong class="text-danger">{{ $last_examination->end_time }}</strong><br/>
+							<a href="">Chi tiết</a></td>
+							<td>
+								<div class="chart">
+								<div id="mywrapperor10"></div>
+								<script type="text/javascript">
 //<![CDATA[
 $(document).ready(function() {
     // HIGHROLLER - HIGHCHARTS UTC OPTIONS 

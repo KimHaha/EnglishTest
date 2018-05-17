@@ -37,6 +37,10 @@ class CategoryController extends Controller
     {
         $list_category = Category::all();
 
+        foreach ($list_category as $category) {
+            
+        }
+
         $data = [
             'list_item' => $list_category,
             'table' => $this->table,

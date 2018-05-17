@@ -47,7 +47,7 @@
     }
 
     $field_column_name = ['name', 'display_name', 'description', 'weight', 'difficult', 
-                            'max_quantity', 'teacher_id'];
+                            'max_quantity', 'teacher_id', 'pass_score', 'max_try'];
     $select_column_name = ['type'];
     $radio_column_name = ['skill'];
     $date_time_column_name = ['start_time', 'end_time'];

@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
-use App\Models\LopHoc;
-use App\Models\Test;
 use App\Models\Question;
 use App\Models\Examination;
 use App\Models\Permission;
 use App\Models\User;
+use App\Models\LopHoc;
+use App\Models\Test;
+use App\Models\Exam;
 
 use Illuminate\Support\Facades\Schema;
 
@@ -80,6 +81,8 @@ class ExaminationController extends Controller
         $new_examination->description  = $request->description;
         $new_examination->start_time   = $request->start_time;
         $new_examination->end_time     = $request->end_time;
+        $new_examination->max_try     = $request->max_try;
+        $new_examination->pass_score     = $request->pass_score;
 
         $new_examination->created_by = $this->user->id;
         $new_examination->updated_by = $this->user->id;
@@ -151,6 +154,8 @@ class ExaminationController extends Controller
         $item->name         = $request->name;
         $item->display_name = $request->display_name;
         $item->description  = $request->description;
+        $item->pass_score  = $request->pass_score;
+        $item->max_try  = $request->max_try;
 
         $item->updated_by = $this->user->id;
 
@@ -223,9 +228,25 @@ class ExaminationController extends Controller
     public function do_examination($examination_id)
     {
         $user = Auth::user();
-        if (!$this->check_test($examination_id))
-            $test = $this->generate_test($examination_id);
-        else 
+        $examination = Examination::findOrFail($examination_id);
+
+        // check max attemp
+        $count = \DB::table('tests')
+            ->join('users', 'tests.owner_id', '=', 'users.id')
+            ->join('exams', 'tests.exam_id', '=', 'exams.id')
+            ->join('examinations', 'exams.examination_id', '=', 'examinations.id')
+            ->where('tests.owner_id', '=', $user->id)
+            ->where('examinations.id', '=', $examination_id)
+            ->count();
+        if ($count > $examination->max_try) {
+            return redirect()->back();
+        }
+
+        // check test exists
+        if (!$this->check_test($examination_id)){
+            // pass count to increase num_try
+            $test = $this->generate_test($examination_id, $count);
+        } else 
             foreach ($user->tests as $test_) {
                 if ($test_->exam->examination->id == $examination_id) {
                     $test = $test_;
@@ -233,6 +254,7 @@ class ExaminationController extends Controller
                 }
             }
 
+        // data for question            
         $question_list_id = explode(',' , $test->exam->question_list);
         $question_list = [];
         foreach ($question_list_id as $question_id) {
@@ -250,20 +272,22 @@ class ExaminationController extends Controller
         return view('exam.exam')->with($data);
     }
 
+    // check if a test exists and not finished 
     public function check_test ($examination_id)
     {
         $user = Auth::user();
         if ($user->tests == null)
             return false;
 
+        // check test have examination_id and not finished
         foreach ($user->tests as $test) {
-            if ($test->exam->examination_id == $examination_id)
+            if (!$test->finished && $test->exam->examination_id == $examination_id)
                 return true;
         }
         return false;
     }
 
-    public function generate_test ($examination_id) 
+    public function generate_test ($examination_id, $count) 
     {
         $user = Auth::user();
         $examination = Examination::findOrFail($examination_id);
@@ -281,6 +305,7 @@ class ExaminationController extends Controller
         $list_result = array();
         $list_choice = array();
         $label = ['A', 'B', 'C', 'D', 'E'];
+
         // generate random choice and result
         foreach ($question_list as $question_id) {
             $question = Question::findOrFail($question_id);
@@ -299,6 +324,7 @@ class ExaminationController extends Controller
             array_push($list_choice, $choices);
         }
 
+        // push random answer if something wrong happen
         if (count($list_result) < 40) {
             $num = count($list_result);
             for ($i = 0; $i < 40 - $num; $i++) {
@@ -311,8 +337,9 @@ class ExaminationController extends Controller
         $test->content     = null;
         $test->score       = 0;
         $test->owner_id    = $user->id;
-        $test->num_try     = 1;
+        $test->num_try     = $count + 1;
         $test->finished    = false;
+        $test->pass = false;
 
         $test->save();
 
