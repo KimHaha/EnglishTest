@@ -177,7 +177,7 @@ class ClassController extends Controller
     public function store_user(Request $request, $id) 
     {
         $class = LopHoc::find($id);
-        $user = User::where('email', '=', $request->email)->get();
+        $user = User::where('email', '=', $request->email)->first();
         $class->users()->save($user);
         $class->quantity = $class->quantity + 1;
         $class->save();

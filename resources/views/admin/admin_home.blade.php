@@ -70,16 +70,16 @@
 						</tr>
 
 						@if ($upcoming_count_examination != 0)
-						@foreach ($examination_upcoming as $examination)
+						@foreach ($examination_upcoming_list as $examination)
 						<tr>
-							<td>{{ $examination_upcoming->start_time }}</td>
-							<td>{{ $examination_upcoming->name }}</td>
+							<td>{{ $examination->start_time }}</td>
+							<td>{{ $examination->name }}</td>
 							<td>
-								@foreach ($item->classes as $class) 
-		                            {{ $class->name }}
+								@foreach ($examination->classes as $class) 
+		                            {{ $class->name }},
 		                        @endforeach
 							</td>
-							<td>{{ $examination_upcoming->pass_score }}</td>
+							<td>{{ $examination->pass_score }}</td>
 							<td>40 mins</td>
 						</tr>
 						@endforeach
@@ -103,6 +103,8 @@
 						</div>
 					</div>
 					<div class="table-responsive">
+
+					@if (isset($last_examination))
 					<table class="table table-bordered">
 						<tr>
 							<th>Thi</th>
@@ -176,6 +178,7 @@ $(document).ready(function() {
 								</td>
 							</tr>
 																			</table>
+																			@endif
 					</div>
 				</div> 
 			</div>

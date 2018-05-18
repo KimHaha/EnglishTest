@@ -191,7 +191,7 @@
                     @elseif ($current_menu_item == 'examinations')
                     <td>
                         @foreach ($item->classes as $class) 
-                            {{ $class->name }}
+                            {{ $class->name }},
                         @endforeach
                     </td>
                     @endif

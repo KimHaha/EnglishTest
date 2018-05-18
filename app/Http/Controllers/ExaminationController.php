@@ -154,6 +154,8 @@ class ExaminationController extends Controller
         $item->name         = $request->name;
         $item->display_name = $request->display_name;
         $item->description  = $request->description;
+        $item->start_time   = $request->start_time;
+        $item->end_time     = $request->end_time;
         $item->pass_score  = $request->pass_score;
         $item->max_try  = $request->max_try;
 

@@ -42,7 +42,7 @@ class HomeController extends Controller
         $today = Carbon::now()->toDateTimeString();
         $user = Auth::user();
         $examination_join = [];
-        $examination_upcoming = [];
+        $examination_upcoming_list = [];
 
         $active_count = 0;
         $upcoming = 0;
@@ -51,7 +51,7 @@ class HomeController extends Controller
                 $active_count ++;
             elseif ($examination->start_time > $today) {
                 $upcoming ++;
-                array_push($examination_upcoming, $examination);
+                array_push($examination_upcoming_list, $examination);
             }
 
             if ($user->hasRole('student'))
@@ -70,7 +70,7 @@ class HomeController extends Controller
             'active_count_examination' => $active_count,
             'upcoming_count_examination' => $upcoming,
             'finished_count_examination' => count($examination_join),
-            'examination_upcoming' => $examination_upcoming,
+            'examination_upcoming_list' => $examination_upcoming_list,
             'current_menu_item' => $this->current_menu_item,
             'last_examination' => $last_examination,
         );

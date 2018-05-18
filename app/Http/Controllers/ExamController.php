@@ -123,7 +123,9 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Exam::destroy($id);
+
+        return redirect()->back();
     }
 
     public function generateListExam($examination_id, $num)
