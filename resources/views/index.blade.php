@@ -104,8 +104,8 @@
 				    Tin tức <span>mới nhất</span>
 				    </h4>
 				    <ul>				
-										<li><a href="News/show/2">Học bổng toàn phần của đại học ADA University tại Azerbaijan, 2017-2018</a></li>
-										<li><a href="News/show/1">Học bổng của đại học Tampere, Phần Lan cho sinh viên quốc tế, 2017</a></li>
+										<li><a href="#">Học bổng toàn phần của đại học ADA University tại Azerbaijan, 2017-2018</a></li>
+										<li><a href="#">Học bổng của đại học Tampere, Phần Lan cho sinh viên quốc tế, 2017</a></li>
 									  
 				  </ul>
 				    </div>
@@ -142,7 +142,7 @@
 							<div class="form-group">								
 								<div class="col-md-12">
 									<div class="col-md-3">
-										<a href="forgots/password"><span class="glyphicon glyphicon-cog"></span>&nbsp; Forgot Password</a>									</div>
+										<a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp; Forgot Password</a>									</div>
 																	</div>								
 							</div>
 						</form>				
