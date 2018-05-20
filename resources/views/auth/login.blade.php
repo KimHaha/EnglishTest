@@ -109,7 +109,7 @@
 				</div>
 				<div class="form-group col-md-12">
 					<div class="row">                                        
-						<button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span>&nbsp;Submit</button>
+						<button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span>&nbsp;Login</button>
 					</div>
 				</div>
                         </form>
@@ -124,14 +124,14 @@
 <div class="col-md-6">
 <div class="widget">
 <h5 class="widget-title">
-Copyright &copy; 2014<span> Test Online</span>
+Copyright &copy; 2018<span> Test Online</span>
 </h4>
 </div> 
 </div> 
 <div class="col-md-6 text-right">
 <div class="widget">
 <h5 class="widget-title">
-Time <span>26-02-2018 10:38:23 AM</span>
+Time <span>26-05-2018 10:38:23 AM</span>
 </h4>
 </div> 
 </div> 
@@ -143,7 +143,7 @@ Time <span>26-02-2018 10:38:23 AM</span>
 <div class="footer-credits-inner">
 <div class="row">
 <div class="col-md-6">
-<span>Powered by <a href="javascript:void(0)">Lequoccu91@gmail.com</a></span>
+<span>Powered by <a href="javascript:void(0)">kimhaihaktqd@gmail.com</a></span>
 </div> 
 </div> 
 </div> 

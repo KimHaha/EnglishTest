@@ -48,7 +48,7 @@
 	     <div class="social-info hidden-xs hidden-sm">
 	         <div class="container">
         	    <ul class="social pull-right textcolor list-unstyled">
-        	            	    <li class="phone active"><a href="#"><i class="fa fa-phone"></i><span>0000-0000</span></a></li>        	            	    <li class="mail"><a href="mailto:info@eduexpression.com"><i class="fa fa-envelope"></i><span>info@eduexpression.com</span></a></li>        	            	    <li class="facebook"><a href="http://facebook.com" target="_blank"><i class="fa fa-facebook"></i><span>follow on facebook</span></a></li>        	    </ul>
+        	            	    <li class="phone active"><a href="#"><i class="fa fa-phone"></i><span>0123-456-789</span></a></li>        	            	    <li class="mail"><a href="mailto:kimhaihaktqd@gmail.com"><i class="fa fa-envelope"></i><span>kimhaihaktqd@gmail.com</span></a></li>        	            	    <li class="facebook"><a href="http://facebook.com" target="_blank"><i class="fa fa-facebook"></i><span>follow on facebook</span></a></li>        	    </ul>
         	    </div>    </div>
 
 	    <div class="logo-header">
@@ -159,14 +159,14 @@
 <div class="col-md-6">
 <div class="widget">
 <h5 class="widget-title">
-Bản quyền thuộc về &copy; 2014<span> Test Online</span>
+Bản quyền thuộc về &copy; 2018<span> Test Online</span>
 </h4>
 </div> 
 </div> 
 <div class="col-md-6 text-right">
 <div class="widget">
 <h5 class="widget-title">
-Thời gian hiện tại : <span>26-02-2018 09:47:55 AM</span>
+Thời gian hiện tại : <span>26-05-2018 09:47:55 AM</span>
 </h4>
 </div> 
 </div> 
@@ -178,7 +178,7 @@ Thời gian hiện tại : <span>26-02-2018 09:47:55 AM</span>
 <div class="footer-credits-inner">
 <div class="row">
 <div class="col-md-6">
-<span>Powered by <a href="javascript:void(0)">Lequoccu91@gmail.com</a></span>
+<span>Powered by <a href="javascript:void(0)">kimhaihaktqd@gmail.com</a></span>
 </div> 
 </div> 
 </div> 

@@ -5,7 +5,7 @@
 			<div class="col-md-6">
 				<div class="widget">
 				<h5 class="widget-title">
-				Copyright &copy; 2014<span> Test Online</span>
+				Copyright &copy; 2018<span> Test Online</span>
 				</h5>
 			</div> 
 		</div> 
@@ -13,7 +13,7 @@
 		<div class="col-md-6 text-right">
 			<div class="widget">
 				<h5 class="widget-title">
-				Time <span>26-02-2018 10:43:15 AM</span>
+				Time <span>26-05-2018 10:43:15 AM</span>
 				</h5>
 			</div> 
 		</div> 
