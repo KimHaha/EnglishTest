@@ -216,7 +216,7 @@
                         <a href="{{ route('classes.users.destroy', [$class_id, $item->id]) }}"
                             class="btn btn-danger">
                             <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
-                        @else 
+                        @elseif ($current_menu_item != 'examinations' && $current_menu_item != 'exams') 
                         <a href="{{ route($current_menu_item . '.destroy', $item->id) }}"
                             onclick="event.preventDefault();
                                      document.getElementById('delete-{{ $item->id }}').submit();" class="btn btn-danger">
@@ -226,6 +226,29 @@
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                             </form>
+                        @else 
+                            <?php 
+                                $delete = false;
+                                if ($current_menu_item == 'examinations') {
+                                    if (count($item->exams) == 0)
+                                        $delete = true;
+                                } elseif ($current_menu_item == 'exams') {
+                                    if (count($item->tests) == 0)
+                                        $delete = true;
+                                }
+                             ?>
+
+                            @if ($delete) 
+                                <a href="{{ route($current_menu_item . '.destroy', $item->id) }}"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('delete-{{ $item->id }}').submit();" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
+
+                                    <form id="delete-{{ $item->id }}" action="{{ route($current_menu_item . '.destroy', $item->id) }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                            </form>
+                            @endif
                         @endif
                         @endif
 
