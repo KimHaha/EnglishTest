@@ -240,7 +240,8 @@ class ExaminationController extends Controller
             ->where('tests.owner_id', '=', $user->id)
             ->where('examinations.id', '=', $examination_id)
             ->count();
-        if ($count > $examination->max_try) {
+
+        if ($count >= $examination->max_try) {
             return redirect()->back();
         }
 
@@ -255,7 +256,6 @@ class ExaminationController extends Controller
                     break;
                 }
             }
-
         // data for question            
         $question_list_id = explode(',' , $test->exam->question_list);
         $question_list = [];
@@ -283,10 +283,10 @@ class ExaminationController extends Controller
 
         // check test have examination_id and not finished
         foreach ($user->tests as $test) {
-            if (!$test->finished && $test->exam->examination_id == $examination_id)
-                return true;
+            if (!$test->finished && ($test->exam->examination_id == $examination_id))
+                return false;
         }
-        return false;
+        return true;
     }
 
     public function generate_test ($examination_id, $count) 

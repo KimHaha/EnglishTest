@@ -79,7 +79,7 @@
 
                             <a href="{{ route('roles.permissions.index', $role->id) }}" name="editallfrm" onclick="check_perform_sedit('Students','18');" class="btn btn-success"><span class="glyphicon glyphicon-list"></span>&nbsp;List Permission</a>
 
-                            <a href="{{ route('roles.permissions.index', $role->id) }}" name="editallfrm" onclick="check_perform_sedit('Students','18');" class="btn btn-success"><span class="glyphicon glyphicon-list"></span>&nbsp;List User</a>
+                            <a href="{{ route('role_list_user', $role->id) }}" name="editallfrm" onclick="check_perform_sedit('Students','18');" class="btn btn-success"><span class="glyphicon glyphicon-list"></span>&nbsp;List User</a>
 
                             <a href="{{ route('roles.destroy', $role->id) }}"
                             onclick="event.preventDefault();

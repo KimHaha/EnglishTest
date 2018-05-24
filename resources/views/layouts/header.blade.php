@@ -61,16 +61,16 @@
 			@if ($user->hasRole('student'))
 			<li @if ($current_menu_item == 'doing_contest') class="current-menu-item" @endif><a href="{{ route('do_contest') }}"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Contest</a></li>
 			@endif
-			@if ($user->hasRole('student') || $user->hasRole('teacher'))
+			@if ($user->hasRole('student') || $user->hasRole('teacher') || $user->hasRole('teacher_admin'))
 			<li @if ($current_menu_item == 'results') class="current-menu-item" @endif><a href="{{ route('results.index') }}"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Result</a></li>
 			@endif
-			@if ($user->hasRole('admin') || $user->hasRole('teacher'))
+			@if ($user->hasRole('admin') || $user->hasRole('teacher') || $user->hasRole('teacher_admin'))
 			<li @if ($current_menu_item == 'categories') class="current-menu-item" @endif><a href="{{ route('categories.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Categories</a></li>
 			<li @if ($current_menu_item == 'examinations') class="current-menu-item" @endif><a href="{{ route('examinations.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Examinations</a></li>
 			<li @if ($current_menu_item == 'exams') class="current-menu-item" @endif><a href="{{ route('exams.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Exams</a></li>
 			@endif
 
-			@if ($user->hasRole('teacher'))
+			@if ($user->hasRole('teacher') || $user->hasRole('teacher_admin'))
 			<li @if ($current_menu_item == 'questions') class="current-menu-item" @endif><a href="{{ route('questions.index') }}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
 			@endif
 
@@ -80,7 +80,7 @@
 			<li @if ($current_menu_item == 'users') class="current-menu-item" @endif><a href="{{ route('users.index') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
 			@endif
 
-			@if ($user->hasRole('teacher') || $user->hasRole('admin'))
+			@if ($user->hasRole('teacher') || $user->hasRole('admin') || $user->hasRole('teacher_admin'))
 			<li @if ($current_menu_item == 'classes') class="current-menu-item" @endif><a href="{{ route('classes.index') }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Classes</a></li>
 			@endif
 

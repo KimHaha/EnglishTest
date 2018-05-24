@@ -20,6 +20,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('roles/{role_id}/users', 'RoleController@list_user')->name('role_list_user');
+
 	Route::resource('roles/{role_id}/permissions', 'RolePermissionController', [
 		'as' => 'roles', 'only' => ['index', 'destroy']
 	]);

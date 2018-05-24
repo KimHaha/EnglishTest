@@ -153,7 +153,7 @@ function startTimer(duration, display) {
 }
 
 window.onload = function () {
-    var time = 3600,
+    var time = 2700,
         display = document.querySelector('#time');
     startTimer(time, display);
 };

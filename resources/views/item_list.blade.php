@@ -3,6 +3,7 @@
 @section ('content')
 
 <?php
+    $user = Auth::user();
     $list_column = \DB::getSchemaBuilder()->getColumnListing($table);
     if ($current_menu_item == 'users')
     {
@@ -40,7 +41,7 @@
             break;
 
         case 'classes':
-            $list_action = ['create', 'edit', 'delete'];
+            $list_action = ['create', 'edit', 'delete', 'show'];
             $title = 'Class';
             break;
 
@@ -69,7 +70,9 @@
         <div class="btn-group">
             @if (in_array('add user', $list_action))
             <a href="{{ route('classes.users.add', $class_id) }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add {{ $title }}</a>
-            @elseif ($current_menu_item != 'exams')
+            @elseif ($current_menu_item != 'exams' && $current_menu_item != 'classes')
+            <a href="{{ route($current_menu_item . '.create') }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create {{ $title }}</a>
+            @elseif ($current_menu_item == 'classes' && $user->hasRole('admin'))
             <a href="{{ route($current_menu_item . '.create') }}" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create {{ $title }}</a>
             @endif
 
@@ -203,13 +206,20 @@
                     {{-- action --}}
                     <td>
                         @if (in_array('edit', $list_action))
+                        @if ($current_menu_item != 'examinations')
                         <a href="{{ route($current_menu_item . '.edit', $item->id) }}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>
+                        @elseif ($user->hasRole('admin'))
+                        <a href="{{ route($current_menu_item . '.edit', $item->id) }}" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>
+                        @endif
                         @endif
 
                         @if (in_array('view', $list_action))
                         <a href="{{ route($current_menu_item . '.show', $item->id) }}" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span>&nbsp;View Exam</a>
                         @endif
 
+                        @if (in_array('show', $list_action) && $current_menu_item == 'classes')
+                        <a href="{{ route($current_menu_item . '.show', $item->id) }}" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span>&nbsp;View Users</a>
+                        @endif
 
                         @if (in_array('delete', $list_action))                
                         @if (isset($action) && $current_menu_item == 'users')
@@ -252,7 +262,7 @@
                         @endif
                         @endif
 
-                        @if (in_array('create exam', $list_action))
+                        @if ($user->hasRole('admin') && in_array('create exam', $list_action))
                         <a href="{{ route('generate_list_exam', $item->id) }}" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span>&nbsp;Create Exam</a>
                         @endif
                         @if (in_array('show exam', $list_action))

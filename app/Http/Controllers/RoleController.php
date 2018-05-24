@@ -88,9 +88,22 @@ class RoleController extends Controller
             'permission_list' => $role->permissions
         ];
 
-        return view('admin.role_list_permission')->with($data);
+        return view('admin.roles.role_list_permission')->with($data);
     }
 
+    public function list_user($id)
+    {
+        $role = Role::findOrFail($id);
+
+        $data = [
+            'role'            => $role,
+            'permission_list' => $role->permissions,
+            'list_user'       => $role->users,
+            'current_menu_item' => $this->current_menu_item
+        ];
+
+        return view('admin.roles.role_list_user')->with($data);
+    }
     /**
      * Show the form for editing the specified resource.
      *

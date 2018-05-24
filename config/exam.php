@@ -9,7 +9,7 @@ return [
 
 	'num_questions' => 40,
 
-	'time' => 45,
+	'time' => 2700,
 
 	'total_score' => 100,
 	'score_pass' => 40,
